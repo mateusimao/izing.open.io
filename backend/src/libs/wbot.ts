@@ -124,7 +124,7 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
         puppeteer: {
           // headless: false,
           executablePath: process.env.CHROME_BIN || undefined,
-          args: [`--user-agent=${DefaultOptions.userAgent}`, ...minimal_args]
+          args: [`--user-agent=${DefaultOptions.userAgent}`, '--no-sandbox']
         }
       }) as Session;
 
