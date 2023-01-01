@@ -35,8 +35,8 @@ COPY ./start_production /start_production
 RUN sed -i 's/\r$//g' /start_production
 RUN chmod +x /start_production
 
-
 ENTRYPOINT ["dumb-init", "--"]
-
-CMD npx sequelize db:migrate \
+CMD dockerize -wait tcp://${POSTGRES_HOST}:5432 \
+  && [ ! -d "dist" ] && echo "buildando a primeira vez" && npm install && npm run build && iniciou="sim" || echo "build ja rodou a primeira vez" \
+  && npx sequelize db:migrate \
   && node dist/server.js
